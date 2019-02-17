@@ -1,33 +1,25 @@
 package com.kennen.cloudnativejava;
 
+import com.kennen.cloudnativejava.dto.Customer;
+import com.kennen.cloudnativejava.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 @SpringBootApplication
-public class CloudNativeJavaApplication {
+public class CloudNativeJavaApplication implements CommandLineRunner {
+
+    @Autowired
+    private CustomerService customerService;
 
     public static void main(String[] args) {
         SpringApplication.run(CloudNativeJavaApplication.class, args);
     }
 
 
-    @Entity
-    class Cat{
-        @Id
-        @GeneratedValue
-        private Long id;
-
-        private String name;
-
-        public Cat() {
-
-        }
-
-
+    @Override
+    public void run(String... args) throws Exception {
+        customerService.save(new Customer("ddakshe@gmail.com"));
     }
-
 }
