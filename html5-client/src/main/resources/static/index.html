@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ID=edge"/>
+    <title>Demo</title>
+    <meta name="description" content=""/>
+    <!--<meta name="viewport" content="width=device-with"/>-->
+    <base href="/"/>
+</head>
+<body>
+
+<div id="message"></div>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script>
+    var greetingsClientUrl = location.protocol + "//" + window.location.host + "/greetings-client-uri";
+
+    $.ajax({url: greetingsClientUrl}).done(function (data) {
+        var nameToGreet = window.prompt("who would you like to greet?");
+        var greetingsServiceUrl = data['uri'] + "/lets/greet/" + nameToGreet;
+        console.log('greetingsServiceUrl: ' + greetingsServiceUrl);
+
+        $.ajax({
+            url: greetingsServiceUrl
+        }).done(function (result) {
+              $("#message").html(result['greeting']);
+          });
+    })
+</script>
+</body>
+</html>
